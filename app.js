@@ -57,45 +57,65 @@ form.addEventListener('submit', e =>{
    
 
     function checkName(){
-        let pattern = /[A-Za-z^0-9]/g;
+        let pattern = /[A-Za-z]/g;
         check = pattern.test(firstname.value)
 
+        console.log("name ---> "+ firstname.value);
+        console.log("el check name ---> "+ check);
+        
+        fn = document.getElementById("fn-message")
+        first = firstname.value.length;
+
+
         if(check == true){
-            fn = document.getElementById("fn-message")
-            first = firstname.value.length;
+            
 
             if(first < 1){
-                fn.innerHTML = "firstname cannot be empty." 
+                msg = "firstname cannot be empty." 
             }
             if(first > 20){
-                fn.innerHTML = "firstname is very long, it must not have more than 20 characters."
+                msg = "firstname is very long, it must not have more than 20 characters."
             }
             if(first < 1 && first <= 20){
-                fn.innerHTML =  "firstname is nice, correct, good and better"
+                msg =  "firstname is nice, correct, good and better"
+                return true;
             }
-
-            return true;
         }
         else{
             return false;
         }
+
+        console.log("mesnaje ----> " + msg);
+
+
     }
 
     function checkLastame(){
 
-        let pattern = /[A-Za-z^0-9]/g;
-        console.log("Last long: " + lastname.value.length );
-        alert("Check lastname Test patron " + pattern.test(lastname.value))
+        let pattern = /[A-Za-z]/g;
+        check = pattern.test(lastname.value)
 
-        last = lastname.value.length;
-        console.log("Longitud: " + last);
+        console.log("apellido ---> "+ lastname.value);
+        console.log("el check lastname ---> "+ check);
 
-        switch(last){
-            case last < 1 : alert("lastname cannot be empty."); 
-                break;
-            case last > 20: alert("lastname is very long, it must not have more than 20 characters."); 
-                break
-            default: console.log("lastname is nice, correct, good and better");            
+        if(check == true){
+            ln = document.getElementById("ln-message")
+            last = lastname.value.length;
+            console.log("Last long: " + last);            
+
+            if(last < 1)
+                ln.innerHTML = "lastname cannot be empty." 
+            
+            if(last > 20)
+                ln.innerHTML = "lastname is very long, it must not have more than 20 characters."
+            
+            if(last < 1 && last <= 20){
+                ln.innerHTML =  "lastname is nice, correct, good and better"
+                return true;
+            }
+        }
+        else{
+            return false;
         }
     }
 
@@ -136,7 +156,32 @@ form.addEventListener('submit', e =>{
                 break;
             case emailLength > 20 && pattern.test(email.value): alert("Email is valid, it is nice")
                 break
-            default: console.log("firstname is nice, correct, good and better");            
+            default: console.log("firstname is nice, correct, good and better");    
+            
+            
+
+        }
+
+
+
+        if(check == true){
+            ln = document.getElementById("ln-message")
+            last = lastname.value.length;
+            console.log("Last long: " + last);            
+
+            if(last < 1)
+                ln.innerHTML = "lastname cannot be empty." 
+            
+            if(last > 20)
+                ln.innerHTML = "lastname is very long, it must not have more than 20 characters."
+            
+            if(last < 1 && last <= 20)
+                ln.innerHTML =  "lastname is nice, correct, good and better"
+
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
@@ -159,13 +204,22 @@ form.addEventListener('submit', e =>{
     function checkData(e){
 
         if(true){
-            result = checkName()
-            console.log("Result name: "  + result);
+            //result = checkName()
+            //console.log("Result name: "  + result);
 
-            checkLastame()
+            if(checkName())
+                alert("El nombre es aceptable ")
+
+
+            if(checkLastame())
+                alert("El apellido es aceptable ")
+
+
+            
             checkAge()
             checkEmail()
             checkPassword()
+            
 
             message.innerHTML = "All right"
             return true
@@ -178,14 +232,19 @@ form.addEventListener('submit', e =>{
 
     form.addEventListener("submit", (e)=>{
 
-        alert("Voy a checkear los datos primero")
+        //alert("Voy a checkear los datos primero")
 
         check = checkData();
+        
+        e.preventDefault();
 
         if(check == false){
             e.preventDefault();
+            alert("mensaje")
             console.log("No se enviaran los datos hasta que todos cumplan lo pedido");
         }
 
-        e.preventDefault();
+       
+
+        message.innerHTML = "aceptado"
     })
