@@ -11,7 +11,7 @@ const message = document.getElementById("message")
     function checkName(){
         firstMessage = document.getElementById('fn-message');
         let firstName = firstname.value;
-        let pattern = /[A-Za-z]/g;
+        let pattern = /[\D]/g;
         let check = pattern.test(firstName);
 
         //console.log("name ---> "+ firstName);
@@ -19,20 +19,26 @@ const message = document.getElementById("message")
         //console.log("el check name ---> " + check)
         //console.log('el tipo de check --> ' + typeof(check));
 
-        if(check == true){
+        if(check == true && firstName.length > 0){
             if(firstName.length > 20){
                 firstMessage.innerHTML = "It is very long, maximum 20 characters."
                 console.log("It is very long, maximum 20 characters.");
             }
-            if(firstName.length > 1 && firstName.length <= 20){
+            if(firstName.length > 0 && firstName.length <= 20){
                 firstMessage.innerHTML =  "acceptable."
                 console.log("firstname is acceptable.");
                 return true;
             }
         }
-        else{
-            firstMessage.innerHTML = "firstname cannot be empty."
-            console.log("firstname cannot be empty.");
+        else if(!check){
+            if(firstName.length < 1){
+                firstMessage.innerHTML = "firstname cannot be empty."
+                console.log("firstname cannot be empty.");
+            }
+            else{
+                firstMessage.innerHTML = "firstname must be only letters."
+                console.log("firstname must be only letters.");
+            }
             return false;
         }
     }
@@ -48,12 +54,14 @@ const message = document.getElementById("message")
         console.log("Last long: " + lastName.length);     
         console.log("el check lastname ---> "+ check);
 
+        
+
         if(check == true){
             if(lastName.length > 20){
                 lastNameMessage.innerHTML = "It is very long, maximum 20 characters."
                 console.log("It is very long, maximum 20 characters.");
             }
-            if(lastName.length > 1 && lastName.length <= 20){
+            if(lastName.length > 0 && lastName.length <= 20){
                 lastNameMessage.innerHTML = "acceptable."
                 console.log("lastname is acceptable.");
                 return true;
@@ -97,114 +105,68 @@ const message = document.getElementById("message")
 
     function checkEmail(){
         let pattern = /[A-Za-z]/g;
-        let patternDominian = /[googlegmailoutlookicloud]/g;
-
-        console.log("El email es: " + password.value);
-        console.log("Longitud email: " + password.value.length);
-        console.log("Comprobando email: " + pattern.test(email.value));
-        console.log("Comprobando dominio email: " + patternDominian.test(email.value));
+        let patternDominian = /[@google@gmail@outlook@icloud]/g;
+        let mail = email.value;
+        let checkMail = pattern.test(mail);
+        let checkDominian = patternDominian.test(mail);
+        let emailMessage = document.getElementById('e-message');
         
-        emailLength = email.value.length 
+        //console.log("El email es: " + mail);
+        //console.log("Longitud email: " + mail.length);
+        //console.log("Comprobando email: " + pattern.test(mail));
+        //console.log("Comprobando dominio email: " + patternDominian.test(mail));
 
-
-        switch(emailLength){
-            case emailLength < 5 : alert("Email is invalid, it is very short")
-                break;
-            case emailLength > 20 && pattern.test(email.value): alert("Email is valid, it is nice")
-                break
-            default: console.log("firstname is nice, correct, good and better");    
-            
-            
-
-        }
-
-
-
-        if(check == true){
-            ln = document.getElementById("ln-message")
-            last = lastname.value.length;
-            console.log("Last long: " + last);            
-
-            if(last < 1)
-                ln.innerHTML = "lastname cannot be empty." 
-            
-            if(last > 20)
-                ln.innerHTML = "lastname is very long, it must not have more than 20 characters."
-            
-            if(last < 1 && last <= 20)
-                ln.innerHTML =  "lastname is nice, correct, good and better"
-
+        if(checkMail && checkDominian && mail.length > 5){
+            console.log("acceptable.");
+            emailMessage.innerHTML = "acceptable.";
             return true;
         }
         else{
+            console.log("Email cannot be empty or ckeck dominian.");
+            emailMessage.innerHTML = "Email cannot be empty or ckeck dominian."
             return false;
         }
     }
 
     function checkPassword(){
+        let pass= password.value
         let pattern = /[A-Za-z0-9]/g;
-        console.log("Comprobando Password: " + pattern.test(password.value));
-        console.log("Longitud password: " + password.value.length);
+        let passMessage = document.getElementById('pass-message');
+        //console.log("Comprobando Password: " + pattern.test(password.value));
+        //console.log("Longitud password: " + password.value.length);
 
-        passwordLength = password.value.length 
-
-        switch(passwordLength){
-            case passwordLength < 5 : alert("Password must have between 9 and 20 characters.")
-                break;
-            case passwordLength > 20 && pattern.test(password.value): alert("Password is very long, it must not have more than 20 characters.");
-                break
-            default: console.log("firstname is nice, correct, good and better");            
+        if(pattern.test(pass)){           
+            if(pass.length < 9 || pass.length > 20){
+                console.log("Password must have between 9 and 20 characters.");
+                passMessage.innerHTML = "Password must have between 9 and 20 characters.";
+            }
+            if(pass.length >= 9 && pass.length <= 20){
+                passMessage.innerHTML = "acceptable.";
+                return true;
+            }
+        }
+        else{
+            console.log("Password cannot be empty.");
+            passMessage.innerHTML = "Password cannot be empty."
+            return false;
         }
     }
 
     function checkData(){
-
-            //result = checkName()
-            //console.log("Result name: "  + result);
-
-            //(checkName())? alert('nombre valido') : alert('nombre no valido')
-
-            if (checkName() && checkLastame() && checkAge()){
-
-            }
-            else{
-                message.innerHTML = "complete and check your information"
-            }
-            
-
-            /*
-            
-            checkAge()
-            checkEmail()
-            checkPassword()
-            
-
-            message.innerHTML = "All right"
-            return true
-
-            */
-     
-    }
-
-    /*
-
-    form.addEventListener("submit", (e)=>{
-
-        //alert("Voy a checkear los datos primero")
-
-        check = checkData();
         
-        e.preventDefault();
+        let checkname = checkName();
+        let checklastame = checkLastame();
+        let checkage = checkAge();
+        let checkemail = checkEmail();
+        let checkpassword = checkPassword();
 
-        if(check == false){
-            e.preventDefault();
-            alert("mensaje")
-            console.log("No se enviaran los datos hasta que todos cumplan lo pedido");
+
+
+
+        if (checkname && checklastame && checkage && checkemail && checkpassword){
+            message.innerHTML = "form completed succefull"
         }
-
-       
-
-        message.innerHTML = "aceptado"
-    })
-
-    */
+        else{
+            message.innerHTML = "complete and check your information"
+        }
+    }

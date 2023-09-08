@@ -10,7 +10,7 @@
     <body>
 
         <form class="form" id="form">
-            <div>
+            <div class="conteiner">
                 <div>
                     <input class="input-text" type="text"  id="firstname" name="firstname" placeholder="First name">
                     <p id="fn-message"></p>
@@ -27,18 +27,18 @@
                 </div>
 
                 <div>
-                    <input class="input-text" type="email" id="email" name="email" placeholder="Email">
+                    <input class="input-text" type="email" id="email" name="email" placeholder="E - mail">
                     <p id="e-message"></p>
                 </div>
                 
                 <div>
-                    <input class="password" type="password" id="password" name="password" placeholder="Contraseña">
+                    <input class="password" type="password" id="password" name="password" placeholder="Password">
                     <p id="pass-message"></p>
                 </div>
 
-                <p id="message"> mensaje general</p>
+                
             </div>
-           
+           <p id="message"></p>
             <button type="button" onclick="checkData()"> Confirmar </button>
         </form>
         <script src="app.js"></script>
