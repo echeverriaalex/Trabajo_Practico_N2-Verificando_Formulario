@@ -1,120 +1,67 @@
 const form = document.getElementById("form");
+
 const firstname = document.getElementById("firstname");
 const lastname = document.getElementById("lastname");
 const age = document.getElementById("age");
-
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 
-let message = document.getElementById("message")
-
-/*
-firstname.addEventListener('keydown', ()=>{
-
-    first = firstname.value.length;
-    console.log("Longitud: " + first);
-
-    if(first ){
-        alert("firstname is ok.");
-        
-    }
-})
-
-
-form.addEventListener('submit', e =>{
-    
-    first = firstname.value.length;
-    console.log(first);
-
-    last = lastname.value.length;
-    console.log(lastname);
-
-    password = password.value.length;
-    console.log(password);
-
-    e.preventDefault();
-
-    if(first <= 0 && first >= 20){
-        alert("firstname is so long, max 20 characters.");
-    }
-    else{
-        alert("firstname is invalido.");
-    }
-
-    /*
-    if(last <= 0 && last >= 20){
-        alert("lastname is empty");
-    }
-    
-    if(password >= 9 && password <=20){
-        alert("firstname or lastname is empty");
-    }
-    */
-
-//})
-
-
-   
+const message = document.getElementById("message")
 
     function checkName(){
+        firstMessage = document.getElementById('fn-message');
+        let firstName = firstname.value;
         let pattern = /[A-Za-z]/g;
-        check = pattern.test(firstname.value)
+        let check = pattern.test(firstName);
 
-        console.log("name ---> "+ firstname.value);
-        console.log("el check name ---> "+ check);
-        
-        fn = document.getElementById("fn-message")
-        first = firstname.value.length;
-
+        //console.log("name ---> "+ firstName);
+        //console.log('name length ---> ' + firstName.length);
+        //console.log("el check name ---> " + check)
+        //console.log('el tipo de check --> ' + typeof(check));
 
         if(check == true){
-            
-
-            if(first < 1){
-                msg = "firstname cannot be empty." 
+            if(firstName.length > 20){
+                firstMessage.innerHTML = "It is very long, maximum 20 characters."
+                console.log("It is very long, maximum 20 characters.");
             }
-            if(first > 20){
-                msg = "firstname is very long, it must not have more than 20 characters."
-            }
-            if(first < 1 && first <= 20){
-                msg =  "firstname is nice, correct, good and better"
+            if(firstName.length > 1 && firstName.length <= 20){
+                firstMessage.innerHTML =  "acceptable."
+                console.log("firstname is acceptable.");
                 return true;
             }
         }
         else{
+            firstMessage.innerHTML = "firstname cannot be empty."
+            console.log("firstname cannot be empty.");
             return false;
         }
-
-        console.log("mesnaje ----> " + msg);
-
-
     }
 
+    
     function checkLastame(){
-
+        let lastNameMessage = document.getElementById("ln-message")
+        let lastName = lastname.value;
         let pattern = /[A-Za-z]/g;
-        check = pattern.test(lastname.value)
+        let check = pattern.test(lastName)
 
-        console.log("apellido ---> "+ lastname.value);
+        console.log("apellido ---> "+ lastName);
+        console.log("Last long: " + lastName.length);     
         console.log("el check lastname ---> "+ check);
 
         if(check == true){
-            ln = document.getElementById("ln-message")
-            last = lastname.value.length;
-            console.log("Last long: " + last);            
-
-            if(last < 1)
-                ln.innerHTML = "lastname cannot be empty." 
-            
-            if(last > 20)
-                ln.innerHTML = "lastname is very long, it must not have more than 20 characters."
-            
-            if(last < 1 && last <= 20){
-                ln.innerHTML =  "lastname is nice, correct, good and better"
+            if(lastName.length > 20){
+                lastNameMessage.innerHTML = "It is very long, maximum 20 characters."
+                console.log("It is very long, maximum 20 characters.");
+            }
+            if(lastName.length > 1 && lastName.length <= 20){
+                lastNameMessage.innerHTML = "acceptable."
+                console.log("lastname is acceptable.");
                 return true;
             }
         }
         else{
+            lastNameMessage.innerHTML = "lastname cannot be empty."
+            console.log("lastname cannot be empty.");
             return false;
         }
     }
@@ -124,17 +71,26 @@ form.addEventListener('submit', e =>{
         let pattern = /[0-9]/g;
         console.log("Age is: " + realAge);
 
+        ageMessage = document.getElementById('age-message')
+
         if(pattern.test(realAge)){
-            if(0 < parseInt(age.value) && parseInt(age.value) < 170 )
-            console.log("Is a right age: " + realAge);
-            //console.log("Tipo original " +  typeof(age.value))
-            //console.log("Tipo parseado " +  typeof(parseInt(age.value)))
-            //console.log("Valor parseado " +  parseInt(age.value))
-            return true
+            if(parseInt(realAge) > 0 && parseInt(realAge) < 170 ){
+                console.log("Is a right age: " + realAge);
+                ageMessage.innerHTML = 'acceptable'
+                //console.log("Tipo original " +  typeof(age.value))
+                //console.log("Tipo parseado " +  typeof(parseInt(age.value)))
+                //console.log("Valor parseado " +  parseInt(age.value))
+                return true
+            }
+            else{
+                console.log("Not is a right age " + realAge);
+                ageMessage.innerHTML = 'Age should be real and a number, without letters.'
+                return false
+            }
         }
         else{
             console.log("Not is a right age " + realAge);
-            alert("Age should be a number, without letters." + realAge)
+            ageMessage.innerHTML = 'Age should be a number, without letters.'
             return false
         }        
     }
@@ -201,20 +157,22 @@ form.addEventListener('submit', e =>{
         }
     }
 
-    function checkData(e){
+    function checkData(){
 
-        if(true){
             //result = checkName()
             //console.log("Result name: "  + result);
 
-            if(checkName())
-                alert("El nombre es aceptable ")
+            //(checkName())? alert('nombre valido') : alert('nombre no valido')
 
+            if (checkName() && checkLastame() && checkAge()){
 
-            if(checkLastame())
-                alert("El apellido es aceptable ")
+            }
+            else{
+                message.innerHTML = "complete and check your information"
+            }
+            
 
-
+            /*
             
             checkAge()
             checkEmail()
@@ -223,12 +181,12 @@ form.addEventListener('submit', e =>{
 
             message.innerHTML = "All right"
             return true
-        }
-        else{
-            message.innerHTML = "Faltan datos"
-            return false;
-        }
+
+            */
+     
     }
+
+    /*
 
     form.addEventListener("submit", (e)=>{
 
@@ -248,3 +206,5 @@ form.addEventListener('submit', e =>{
 
         message.innerHTML = "aceptado"
     })
+
+    */

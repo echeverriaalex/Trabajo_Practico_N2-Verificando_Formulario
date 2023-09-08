@@ -30,11 +30,11 @@ p{
 
     
     margin: 5px auto;
-    width: 300px;
+    width: 350px;
     border: none;
     background: transparent;
     text-align: center;
-    font-size: 18px;
+    font-size: 14px;
     margin-bottom: 20px;
     color: rgb(248, 10, 10);
     font-weight: 100;
@@ -43,7 +43,7 @@ p{
 }
 
 #message{
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 button{

@@ -12,38 +12,35 @@
         <form class="form" id="form">
             <div>
                 <div>
-                    <input class="input-text" type="text" autofocus id="firstname" name="firstname" placeholder="First name">
-                    <p id="fn-message" title="mensajeeee">mensaje</p>
+                    <input class="input-text" type="text"  id="firstname" name="firstname" placeholder="First name">
+                    <p id="fn-message"></p>
                 </div>
                 
                 <div>
                     <input class="input-text" type="text" id="lastname" name="lastname" placeholder="Last name">
-                    <p id="ln-message">mensaje</p>
+                    <p id="ln-message"></p>
                 </div>
                 
                 <div>
                     <input class="input-number" type="number" id="age" name="age" placeholder="Age">
-                    <p id="age-message">mensaje</p>
+                    <p id="age-message"></p>
                 </div>
 
                 <div>
                     <input class="input-text" type="email" id="email" name="email" placeholder="Email">
-                    <p id="email-message">mensaje</p>
+                    <p id="e-message"></p>
                 </div>
                 
                 <div>
                     <input class="password" type="password" id="password" name="password" placeholder="Contraseña">
-                    <p id="password-message">mensaje</p>
+                    <p id="pass-message"></p>
                 </div>
 
                 <p id="message"> mensaje general</p>
             </div>
            
-            <button id="submit" type="submit" > Confirmar </button>
+            <button type="button" onclick="checkData()"> Confirmar </button>
         </form>
-
-        
-
         <script src="app.js"></script>
     </body>
 </html>
